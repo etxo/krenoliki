@@ -3,6 +3,7 @@ package com.etxo.krenoliki.service;
 import com.etxo.krenoliki.exceptions.GameNotFoundException;
 import com.etxo.krenoliki.exceptions.InvalidGameException;
 import com.etxo.krenoliki.model.*;
+import com.etxo.krenoliki.model.Process;
 import com.etxo.krenoliki.storage.GameStorage;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,9 +20,13 @@ public class GameService {
     private final int FIELD_SIZE = 15;
     public Game createGame(Player player){
         Game game = new Game();
+        game.setGameId(Game.idCounter++);
         game.setGameBoard(new Sign[FIELD_SIZE][FIELD_SIZE]);
         game.fillBoard();
-        game.setGameId(game.getGameId() + 1);
+        player.setSign(Sign.x);
+        game.setPlayer1(player);
+        game.setState(NEW);
+
         GameStorage.getInstance().setGame(game);
         return game;
     }
@@ -44,14 +49,16 @@ public class GameService {
         return game;
     }
 
-    public Sign[][] increaseFieldByThree(Sign[][] field){
 
-        Sign[][] tempField = new Sign[field.length +3][field.length +3];
 
-        for(int i = 0; i < field.length; i++) {
-            tempField [i] = Arrays.copyOf(field[i], field.length + 3);
+    public Sign[][] increaseBoardByThree(Sign[][] board){
+
+        Sign[][] tempBoard = new Sign[board.length +3][board.length +3];
+
+        for(int i = 0; i < board.length; i++) {
+            tempBoard [i] = Arrays.copyOf(board[i], board.length + 3);
         }
-        return field = tempField;
+        return board = tempBoard;
     }
     public Sign checkWinner (Sign[][] gB){
         if(checkRowsAndColumns(gB) == Sign.x || checkDiagonal(gB) == Sign.x) {
@@ -129,7 +136,8 @@ public class GameService {
         return null;
     }
 
-    public void drawTheField(Sign[][] field) {
+    public void drawTheField(Sign[][] field) { //drawing the field in the console as long as we don't have a frontend
+        //and after the game is over
 
         for (Sign[] x : field) {
             for (Sign y : x) {
@@ -139,17 +147,27 @@ public class GameService {
         }
     }
 
-    public Game move(Move move) throws GameNotFoundException, InvalidGameException {
+    public Game makeMove(Process move) throws GameNotFoundException, InvalidGameException {
         if(!GameStorage.getInstance().getGames().containsKey(move.getGameId())){
             throw new GameNotFoundException("game not found!");
         }
         Game game = GameStorage.getInstance().getGames().get(move.getGameId());
         if(game.getState().equals(OVER)){
-            throw new InvalidGameException("this game has already been played");
+            throw new InvalidGameException("this game is already finished");
         }
         Sign[][] gameBoard = game.getGameBoard();
         gameBoard[move.getPositionX()][move.getPositionY()] = move.getPlayer().getSign();
 
+        Sign winner = checkWinner(game.getGameBoard());
+        if(winner != null){
+            game.setState(OVER);
+        }
+
+        if(move.getPositionX() > gameBoard.length - 3 || move.getPositionY() > gameBoard.length - 3){
+            gameBoard = increaseBoardByThree(gameBoard);
+        }
+
+        GameStorage.getInstance().setGame(game);
         return game;
     }
 }

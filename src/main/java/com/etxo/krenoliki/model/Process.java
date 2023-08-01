@@ -3,10 +3,10 @@ package com.etxo.krenoliki.model;
 import lombok.Data;
 
 @Data
-public class Move {
+public class Process {
 
     private int positionX;
     private int positionY;
-    Player player;
+    private Player player;
     private Long gameId;
 }
