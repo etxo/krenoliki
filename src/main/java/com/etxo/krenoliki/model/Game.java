@@ -1,28 +1,21 @@
 package com.etxo.krenoliki.model;
 
 import lombok.Data;
-
 @Data
 public class Game {
 
-    public static Long idCounter;
+    //private final int START_SIZE = 15;
+    public static Long idCounter = 0L;
     private Long gameId;
 
-    /*public Long getGameId(Game game){
-        return gameId;
-    }*/
-    private Player player1;
-    private Player player2;
+    private Player playerOne;
+    private Player playerTwo;
 
     private GameState state;
     private Sign[][] gameBoard;
     private Sign winner;
 
-    public void fillBoard() { //filling the board with 'n' as long as no frontend.
-        for(int i = 0; i < gameBoard.length; i++) {
-            for(int j = 0; j < gameBoard[i].length; j++) {
-                gameBoard[i][j] = Sign.n;
-            }
-        }
-    }
+    /*public Game(Sign[][] gameBoard){
+        this.gameBoard = new Sign[START_SIZE][START_SIZE];
+    }*/
 }

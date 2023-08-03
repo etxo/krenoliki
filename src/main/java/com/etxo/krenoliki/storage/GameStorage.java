@@ -4,14 +4,12 @@ import com.etxo.krenoliki.model.Game;
 
 import java.util.HashMap;
 import java.util.Map;
-
 public class GameStorage {
 
     private static Map<Long, Game> games;
     private static GameStorage instance;
 
-    private GameStorage() {
-        Map<Long, Game> games = new HashMap<>();
+    private GameStorage() { games = new HashMap<>();
     }
 
     public static synchronized GameStorage getInstance() {
@@ -24,7 +22,7 @@ public class GameStorage {
         return games;
     }
 
-    public void setGame(Game game) {
+    public void addGame(Game game) {
         games.put(game.getGameId(), game);
     }
 }

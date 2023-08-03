@@ -5,5 +5,4 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class GameNotFoundException extends Exception{
     private String message;
-
 }
