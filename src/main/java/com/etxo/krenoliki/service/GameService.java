@@ -77,7 +77,7 @@ public class GameService {
     }
     public boolean checkWinner (Sign[][] board, Sign sign){
 
-        return checkRowsAndColumns(board, sign) || checkDiagonal(board, sign);
+        return /*checkRowsAndColumns(board, sign) ||*/ checkDiagonal(board, sign);
     }
 
     private boolean checkRowsAndColumns(Sign[][] board, Sign sign) throws IndexOutOfBoundsException{
@@ -115,10 +115,12 @@ public class GameService {
 
     private boolean checkDiagonal (Sign[][] board, Sign sign) throws IndexOutOfBoundsException{
 
-        for(int k = 3; k < board.length-1; k++){
+        int boardSize = board.length;
+        for(int k = 4; k < boardSize; k++){
+            //go from right to left
 
             int count5 = 0;
-            for(int j = k, i = 1; j >= 0; j--, i++){
+            for(int j = k-1, i = 1; j >= 0; j--, i++){
                 if(board[i][j] == board[i-1][j+1] && board[i][j] == sign){
                     count5++;
                 }else{
@@ -129,7 +131,8 @@ public class GameService {
                 }
             }
 
-            for(int j = board[0].length - k, i = 1; j < board[0].length; j++, i++){
+            for(int j = boardSize - k, i = 1; j < boardSize; j++, i++){
+                //go from left to right
                 if(board[i][j] == board[i-1][j-1] && board[i][j] == sign){
                     count5++;
                 }else{
@@ -143,11 +146,11 @@ public class GameService {
         return false;
     }
 
-    public void drawTheField(Sign[][] field) {
+    public void drawTheBoard(Sign[][] board) {
         //drawing the field in the console after the game is over
         // as long as we don't have a frontend
 
-        for (Sign[] x : field) {
+        for (Sign[] x : board) {
             for (Sign y : x) {
                 System.out.print(" " + y);
             }
@@ -155,7 +158,7 @@ public class GameService {
         }
     }
 
-    public Game makeMove(Move move) throws GameNotFoundException, InvalidGameException {
+    public Game makeMove(Move move) throws GameNotFoundException, InvalidGameException, IndexOutOfBoundsException {
         if(!GameStorage.getInstance().getGames().containsKey(move.getGameId())){
             throw new GameNotFoundException("game not found!");
 
@@ -168,6 +171,7 @@ public class GameService {
         Sign[][] gameBoard = game.getGameBoard();
         if (move.getPlayer().equals(game.getPlayerOne())) {
             gameBoard[move.getXPosition()][move.getYPosition()] = Sign.x;
+            //The first player gets always the 'x' sign...
 
             if (checkWinner(gameBoard, Sign.x)){
                 game.setState(OVER);
@@ -176,6 +180,7 @@ public class GameService {
             }
         }else if (move.getPlayer().equals(game.getPlayerTwo())) {
             gameBoard[move.getXPosition()][move.getYPosition()] = Sign.o;
+            //and the second one gets the 'o' sign.
 
             if (checkWinner(gameBoard, Sign.o)){
                 game.setState(OVER);

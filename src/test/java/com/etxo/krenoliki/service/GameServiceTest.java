@@ -20,7 +20,6 @@ class GameServiceTest {
         //Game game = (new GameService()).setGame(player);
         Game game = underTest.setGame(player);
         // Then
-        //Optional<Player> optionalPlayer = Optional.ofNullable(game.getPlayerOne());
         assertThat(game.getPlayerOne().getName()).isEqualTo("Virgis");
     }
     @Test
@@ -62,6 +61,23 @@ class GameServiceTest {
 
     @Test
     void itShouldCheckWinner() {
+        // Given
+        Game game = underTest.setGame(new Player("Anatol"));
+        Sign board[][] = game.getGameBoard();
+        for (int i = 7; i < 12; i++){
+            board [i][i] = Sign.x;
+        }
+        for (int i = 6, j = 7; i > 1; i--, j++){
+            board[i][j] = Sign.o;
+        }
+        game.setGameBoard(board);
+        // When
+        boolean isXtheWinner = underTest.checkWinner(game.getGameBoard(), Sign.x);
+        boolean isOtheWinner = underTest.checkWinner(game.getGameBoard(), Sign.o);
+        underTest.drawTheBoard(game.getGameBoard());
+        // Then
+        //assertThat(isXtheWinner).isTrue();
+        assertThat(isOtheWinner).isTrue();
     }
 
     @Test
