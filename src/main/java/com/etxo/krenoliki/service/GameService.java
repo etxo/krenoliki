@@ -16,18 +16,18 @@ import static com.etxo.krenoliki.model.GameState.*;
 public class GameService {
     public Game setGame(Player player){
 
-        int FIELD_SIZE = 15;
+        int FIELD_SIZE = 15; //default board size, should be enough for a usual game
         Game game = new Game();
         game.setGameBoard(new Sign[FIELD_SIZE][FIELD_SIZE]);
         fillBoard(game.getGameBoard());
         game.setGameId(Game.idCounter + 1L);
-        //player.setSign(Sign.x);
         game.setPlayerOne(player);
         game.setState(NEW);
         GameStorage.getInstance().addGame(game);
         return game;
     }
-    public Sign[][] fillBoard(Sign[][] board) { //filling the board with 'n' as long as there is no frontend.
+    public Sign[][] fillBoard(Sign[][] board) {
+        //filling the board with 'n' as long as there is no frontend.
         for(int i = 0; i < board.length; i++) {
             for(int j = 0; j < board[i].length; j++) {
                 board[i][j] = Sign.n;
@@ -98,6 +98,7 @@ public class GameService {
                 if(countRows5 == 5){
                     return true;
                 }
+                //check the columns
                 if(board[j][i] == board[j-1][i] && board[i][j] == sign){
                     countColumns5++;
                 }else{
@@ -142,8 +143,9 @@ public class GameService {
         return false;
     }
 
-    public void drawTheField(Sign[][] field) { //drawing the field in the console as long as we don't have a frontend
-        //and after the game is over
+    public void drawTheField(Sign[][] field) {
+        //drawing the field in the console after the game is over
+        // as long as we don't have a frontend
 
         for (Sign[] x : field) {
             for (Sign y : x) {

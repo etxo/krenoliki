@@ -41,17 +41,27 @@ class GameServiceTest {
         // Given
         Game game = underTest.setGame(new Player("Virgis"));
         // When
-        game.setGameBoard(underTest.increaseBoardLeftUp(game.getGameBoard()));
+        game.setGameBoard(underTest.increaseBoardRightDown(game.getGameBoard()));
         // Then
         assertThat(game.getGameBoard()).hasDimensions(18, 18);
     }
 
     @Test
-    void increaseBoardLeftUp(Sign[][] gameBoard) {
+    void itShouldIncreaseBoardLeftUp() {
+        // Given
+        Game game = underTest.setGame(new Player("Max"));
+        game.getGameBoard()[3][6] = Sign.x;
+        game.getGameBoard()[4][7] = Sign.o;
+        // When
+        game.setGameBoard(underTest.increaseBoardLeftUp(game.getGameBoard()));
+        // Then
+        assertThat(game.getGameBoard()).hasDimensions(18,18);
+        assertThat(game.getGameBoard()[6][9]).isEqualTo(Sign.x);
+        assertThat(game.getGameBoard()[7][10]).isEqualTo(Sign.o);
     }
 
     @Test
-    void checkWinner() {
+    void itShouldCheckWinner() {
     }
 
     @Test
