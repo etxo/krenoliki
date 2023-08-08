@@ -77,7 +77,8 @@ public class GameService {
     }
     public boolean checkWinner (Sign[][] board, Sign sign){
 
-        return checkRowsAndColumns(board, sign) || checkDiagonal(board, sign);
+        return checkRowsAndColumns(board, sign) ||
+                checkDiagonal(board, sign);
     }
 
     private boolean checkRowsAndColumns(Sign[][] board, Sign sign) throws IndexOutOfBoundsException{
@@ -115,34 +116,8 @@ public class GameService {
 
     public boolean checkDiagonal (Sign[][] board, Sign sign) throws IndexOutOfBoundsException {
 
-        int boardSize = board.length;
-        for(int k = 4; k < boardSize; k++){
-            //go from right to left
-
-            int count5 = 0;
-            for(int i = 1, j = k-1; j >= 0; i++,  j--){
-                if(board[i][j] == sign && board[i-1][j+1] == sign){
-                    count5++;
-                }else{
-                    count5 = 0;
-                }
-                if(count5 == 5){
-                    return true;
-                }
-            }
-            for(int i = 1, j = boardSize - k; j < boardSize; j++, i++){
-                //go from left to right
-                if(board[i][j] == sign && board[i-1][j-1] == sign){
-                    count5++;
-                }else{
-                    count5 = 0;
-                }
-                if(count5 == 5){
-                    return true;
-                }
-            }
-        }
-        return false;
+        return checkDiagonalFromRightToLeft(board, sign) ||
+                checkDiagonalFromLeftToRight(board, sign);
     }
 
     public boolean checkDiagonalFromLeftToRight (Sign[][] board, Sign sign) throws IndexOutOfBoundsException {
@@ -155,7 +130,7 @@ public class GameService {
             for (int i = 1, j = k; j < boardSize; i++, j++) {
                 if (board[i][j] == sign && board[i - 1][j - 1] == sign) {
                     count5ToTheRight++;
-                    System.out.println(count5ToTheRight);
+                    //System.out.println(count5ToTheRight);
 
                 } else {
                     count5ToTheRight = 1;
@@ -176,7 +151,7 @@ public class GameService {
     public boolean checkDiagonalFromRightToLeft (Sign[][] board, Sign sign) throws IndexOutOfBoundsException {
 
         int boardSize = board.length;
-        for (int k = boardSize - 1; k >= 0; k--) {
+        for (int k = boardSize - 1; k > 3; k--) {
 
             int count5ToTheLeft = 1;
             int count5ToTheRight = 1;
@@ -186,17 +161,18 @@ public class GameService {
                 } else {
                     count5ToTheLeft = 1;
                 }
-            }if (count5ToTheLeft == 5)
-                return true;
-            for (int i = boardSize - k, j = boardSize - 2; i >= 0; i++, j--) {
+                if (count5ToTheLeft == 5)
+                    return true;
+            }
+            for (int i = boardSize - k, j = boardSize - 2; i < boardSize; i++, j--) {
                 if (board[i][j] == sign && board[i-1][j+1] == sign) {
                     count5ToTheRight++;
                 }else{
                     count5ToTheRight = 1;
                 }
+                if (count5ToTheRight == 5)
+                    return true;
             }
-            if (count5ToTheRight == 5)
-                return true;
         }
         return false;
     }
