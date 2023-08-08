@@ -60,6 +60,56 @@ class GameServiceTest {
     }
 
     @Test
+    void itShouldCheckDiagonal() {
+        Game game = underTest.setGame(new Player("Anatol"));
+        Sign board[][] = game.getGameBoard();
+        for (int i = 7; i < 12; i++){
+            board [i][i] = Sign.x;
+        }
+        for (int i = 6, j = 7; i > 1; i--, j++){
+            board[i][j] = Sign.o;
+        }
+        game.setGameBoard(board);
+        // When
+        boolean isXtheWinner = underTest.checkDiagonal(game.getGameBoard(), Sign.x);
+        underTest.drawTheBoard(game.getGameBoard());
+        // Then
+        assertThat(isXtheWinner).isTrue();
+        //assertThat(isOtheWinner).isTrue();
+    }
+
+    @Test
+    void itShouldCheckDiagonalFromLeftToRight() {
+        Game game = underTest.setGame(new Player("Anatol"));
+        Sign board[][] = game.getGameBoard();
+        for (int i = 7, j = 3; i < 12; i++, j++){
+            board [i][j] = Sign.x;
+        }
+        game.setGameBoard(board);
+        // When
+        boolean isXtheWinner = underTest.checkDiagonalFromLeftToRight(game.getGameBoard(), Sign.x);
+        underTest.drawTheBoard(game.getGameBoard());
+        // Then
+        assertThat(isXtheWinner).isTrue();
+        //assertThat(isOtheWinner).isTrue();
+    }
+
+    @Test
+    void itShouldCheckDiagonalFromRightToLeft() {
+        Game game = underTest.setGame(new Player("Anatol"));
+        Sign board[][] = game.getGameBoard();
+        for (int i = 7, j = 10; i < 12; i++, j--){
+            board [i][j] = Sign.x;
+        }
+        game.setGameBoard(board);
+        // When
+        boolean isXtheWinner = underTest.checkDiagonalFromRightToLeft(game.getGameBoard(), Sign.x);
+        underTest.drawTheBoard(game.getGameBoard());
+        // Then
+        assertThat(isXtheWinner).isTrue();
+        //assertThat(isOtheWinner).isTrue();
+    }
+    @Test
     void itShouldCheckWinner() {
         // Given
         Game game = underTest.setGame(new Player("Anatol"));
@@ -76,8 +126,8 @@ class GameServiceTest {
         boolean isOtheWinner = underTest.checkWinner(game.getGameBoard(), Sign.o);
         underTest.drawTheBoard(game.getGameBoard());
         // Then
-        //assertThat(isXtheWinner).isTrue();
-        assertThat(isOtheWinner).isTrue();
+        assertThat(isXtheWinner).isTrue();
+        //assertThat(isOtheWinner).isTrue();
     }
 
     @Test
