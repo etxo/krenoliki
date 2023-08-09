@@ -116,11 +116,11 @@ public class GameService {
 
     public boolean checkDiagonal (Sign[][] board, Sign sign) throws IndexOutOfBoundsException {
 
-        return checkDiagonalFromRightToLeft(board, sign) ||
-                checkDiagonalFromLeftToRight(board, sign);
+        return checkSecondDiagonal(board, sign) ||
+                checkMainDiagonal(board, sign);
     }
 
-    public boolean checkDiagonalFromLeftToRight (Sign[][] board, Sign sign) throws IndexOutOfBoundsException {
+    public boolean checkMainDiagonal(Sign[][] board, Sign sign) throws IndexOutOfBoundsException {
 
         int boardSize = board.length;
         for (int k = 1; k <= boardSize - 4; k++) {
@@ -148,7 +148,7 @@ public class GameService {
         return false;
     }
 
-    public boolean checkDiagonalFromRightToLeft (Sign[][] board, Sign sign) throws IndexOutOfBoundsException {
+    public boolean checkSecondDiagonal(Sign[][] board, Sign sign) throws IndexOutOfBoundsException {
 
         int boardSize = board.length;
         for (int k = boardSize - 1; k > 3; k--) {

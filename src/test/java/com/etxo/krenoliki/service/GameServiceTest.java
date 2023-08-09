@@ -68,7 +68,7 @@ class GameServiceTest {
         }
         game.setGameBoard(board);
         // When
-        boolean isXtheWinner = underTest.checkDiagonalFromLeftToRight(game.getGameBoard(), Sign.x);
+        boolean isXtheWinner = underTest.checkMainDiagonal(game.getGameBoard(), Sign.x);
         underTest.drawTheBoard(game.getGameBoard());
         // Then
         assertThat(isXtheWinner).isTrue();
@@ -87,7 +87,7 @@ class GameServiceTest {
         }*/
         game.setGameBoard(board);
         // When
-        boolean isXtheWinner = underTest.checkDiagonalFromRightToLeft(game.getGameBoard(), Sign.x);
+        boolean isXtheWinner = underTest.checkSecondDiagonal(game.getGameBoard(), Sign.x);
         underTest.drawTheBoard(game.getGameBoard());
         // Then
         assertThat(isXtheWinner).isTrue();
