@@ -60,7 +60,7 @@ class GameServiceTest {
     }
 
     @Test
-    void itShouldCheckDiagonalFromLeftToRight() {
+    void itShouldCheckMainDiagonal() {
         Game game = underTest.setGame(new Player("Anatol"));
         Sign board[][] = game.getGameBoard();
         for (int i = 7, j = 3; i < 12; i++, j++){
@@ -76,7 +76,7 @@ class GameServiceTest {
     }
 
     @Test
-    void itShouldCheckDiagonalFromRightToLeft() {
+    void itShouldCheckSecondDiagonal() {
         Game game = underTest.setGame(new Player("Anatol"));
         Sign board[][] = game.getGameBoard();
         for (int i = 9, j = 12; i < 14; i++, j--){
