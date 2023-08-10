@@ -250,7 +250,7 @@ public class GameService {
         }
 
             if (move.getXPosition() > gameBoard.length - 2 || move.getYPosition() > gameBoard.length - 2) {
-                gameBoard = inlargeBoardDown(gameBoard);
+                gameBoard = enlargeBoardDown(gameBoard);
             }
 
             if (move.getXPosition() < 2 || move.getYPosition() < 2) {

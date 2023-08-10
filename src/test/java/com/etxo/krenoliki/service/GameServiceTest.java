@@ -36,7 +36,7 @@ class GameServiceTest {
     }
 
     @Test
-    void itSchouldIlargeBoardDown() {
+    void itSchouldEnlargeBoardDown() {
         // Given
         Game game = underTest.setGame(new Player("Virgis"));
         game.getGameBoard()[7][12] = Sign.x;
@@ -51,7 +51,7 @@ class GameServiceTest {
     }
 
     @Test
-    void itShouldInlargeBoardUp() {
+    void itShouldEnlargeBoardUp() {
         // Given
         Game game = underTest.setGame(new Player("Max"));
         game.getGameBoard()[3][6] = Sign.x;
@@ -65,7 +65,7 @@ class GameServiceTest {
         assertThat(game.getGameBoard()[7][7]).isEqualTo(Sign.o);
     }
     @Test
-    void itShouldInlargeBoardToRight() {
+    void itShouldEnlargeBoardToRight() {
         // Given
         Game game = underTest.setGame(new Player("Andrey"));
         game.getGameBoard()[3][12] = Sign.x;
