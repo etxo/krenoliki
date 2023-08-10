@@ -42,7 +42,7 @@ class GameServiceTest {
         game.getGameBoard()[7][12] = Sign.x;
         game.getGameBoard()[9][8] = Sign.o;
         // When
-        game.setGameBoard(underTest.inlargeBoardDown(game.getGameBoard()));
+        game.setGameBoard(underTest.enlargeBoardDown(game.getGameBoard()));
         underTest.drawTheBoard(game.getGameBoard());
         // Then
         assertThat(game.getGameBoard()).hasDimensions(18, 15);
@@ -57,7 +57,7 @@ class GameServiceTest {
         game.getGameBoard()[3][6] = Sign.x;
         game.getGameBoard()[4][7] = Sign.o;
         // When
-        game.setGameBoard(underTest.inlargeBoardUp(game.getGameBoard()));
+        game.setGameBoard(underTest.enlargeBoardUp(game.getGameBoard()));
         underTest.drawTheBoard(game.getGameBoard());
         // Then
         assertThat(game.getGameBoard()).hasDimensions(18,15);
@@ -71,7 +71,7 @@ class GameServiceTest {
         game.getGameBoard()[3][12] = Sign.x;
         game.getGameBoard()[11][8] = Sign.o;
         // When
-        game.setGameBoard(underTest.inlargeBoardToRight(game.getGameBoard()));
+        game.setGameBoard(underTest.enlargeBoardToRight(game.getGameBoard()));
         underTest.drawTheBoard(game.getGameBoard());
         // Then
         assertThat(game.getGameBoard()).hasDimensions(15, 18);

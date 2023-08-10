@@ -54,7 +54,7 @@ public class GameService {
         return game;
     }
 
-    public Sign[][] inlargeBoardDown(Sign[][] board){
+    public Sign[][] enlargeBoardDown(Sign[][] board){
 
         Sign[][] newBoard = new Sign[board.length +3][board[0].length];
 
@@ -72,7 +72,7 @@ public class GameService {
         return newBoard;
     }
 
-    public Sign[][] inlargeBoardUp(Sign[][] board){
+    public Sign[][] enlargeBoardUp(Sign[][] board){
 
         Sign[][] newBoard = new Sign[board.length +3][board[0].length];
 
@@ -89,7 +89,7 @@ public class GameService {
         return newBoard;
     }
 
-    public Sign[][] inlargeBoardToRight(Sign[][] board){
+    public Sign[][] enlargeBoardToRight(Sign[][] board){
 
         Sign[][] newBoard = new Sign[board.length][board[0].length +3];
         for(int i = 0; i < board.length; i++) {
@@ -254,7 +254,7 @@ public class GameService {
             }
 
             if (move.getXPosition() < 2 || move.getYPosition() < 2) {
-                gameBoard = inlargeBoardUp(gameBoard);
+                gameBoard = enlargeBoardUp(gameBoard);
 
             }
 
