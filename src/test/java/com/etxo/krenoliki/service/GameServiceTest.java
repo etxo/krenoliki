@@ -24,7 +24,7 @@ class GameServiceTest {
         assertThat(game.getPlayerOne().getName()).isEqualTo("Virgis");
     }
     @Test
-    void itSchouldConnectSecondPlayerToGame() {
+    void itShouldConnectSecondPlayerToGame() {
         // Given
         Game game = underTest.setGame(new Player("Virgis"));
         Player playerTwo = new Player("Andre");
@@ -37,7 +37,7 @@ class GameServiceTest {
     }
 
     @Test
-    void itSchouldEnlargeBoardDown() {
+    void itShouldEnlargeBoardDown() {
         // Given
         Game game = underTest.setGame(new Player("Virgis"));
         game.getGameBoard()[7][12] = Sign.x;
