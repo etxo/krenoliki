@@ -54,23 +54,48 @@ public class GameService {
         return game;
     }
 
-    public Sign[][] increaseBoardRightDown(Sign[][] board){
+    public Sign[][] inlargeBoardDown(Sign[][] board){
 
-        Sign[][] newBoard = new Sign[board.length +3][board.length +3];
+        Sign[][] newBoard = new Sign[board.length +3][board[0].length];
 
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                newBoard[i][j] = board[i][j];
+            }
+        }
+        for (int i = board.length; i < newBoard.length; i++) {
+            for (int j = 0; j < newBoard[i].length; j++) {
+                newBoard[i][j] = Sign.n;
+            }
+        }
+
+        return newBoard;
+    }
+
+    public Sign[][] inlargeBoardUp(Sign[][] board){
+
+        Sign[][] newBoard = new Sign[board.length +3][board[0].length];
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                newBoard[i][j] = Sign.n;
+            }
+        }
         for(int i = 0; i < board.length; i++) {
-            newBoard [i] = Arrays.copyOf(board[i], board.length + 3);
+            for(int j = 0; j < board.length; j++){
+                newBoard[i + 3][j] = board[i][j];
+            }
         }
         return newBoard;
     }
 
-    public Sign[][] increaseBoardLeftUp(Sign[][] board){
+    public Sign[][] inlargeBoardToRight(Sign[][] board){
 
-        Sign[][] newBoard = new Sign[board.length +3][board.length +3];
-
+        Sign[][] newBoard = new Sign[board.length][board[0].length +3];
         for(int i = 0; i < board.length; i++) {
-            for(int j = 0; j < board.length; j++){
-                newBoard[i + 3][j + 3] = board[i][j];
+            newBoard [i] = Arrays.copyOf(board[i], board[0].length + 3);
+            for (int j = board[i].length; j < newBoard[i].length; j++) {
+                newBoard[i][j] = Sign.n;
             }
         }
         return newBoard;
@@ -225,11 +250,11 @@ public class GameService {
         }
 
             if (move.getXPosition() > gameBoard.length - 2 || move.getYPosition() > gameBoard.length - 2) {
-                gameBoard = increaseBoardRightDown(gameBoard);
+                gameBoard = inlargeBoardDown(gameBoard);
             }
 
             if (move.getXPosition() < 2 || move.getYPosition() < 2) {
-                gameBoard = increaseBoardLeftUp(gameBoard);
+                gameBoard = inlargeBoardUp(gameBoard);
 
             }
 

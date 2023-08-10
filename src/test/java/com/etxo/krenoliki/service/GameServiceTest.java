@@ -36,29 +36,48 @@ class GameServiceTest {
     }
 
     @Test
-    void itSchouldIncreaseBoardRightDown() {
+    void itSchouldIlargeBoardDown() {
         // Given
         Game game = underTest.setGame(new Player("Virgis"));
+        game.getGameBoard()[7][12] = Sign.x;
+        game.getGameBoard()[9][8] = Sign.o;
         // When
-        game.setGameBoard(underTest.increaseBoardRightDown(game.getGameBoard()));
+        game.setGameBoard(underTest.inlargeBoardDown(game.getGameBoard()));
+        underTest.drawTheBoard(game.getGameBoard());
         // Then
-        assertThat(game.getGameBoard()).hasDimensions(18, 18);
+        assertThat(game.getGameBoard()).hasDimensions(18, 15);
+        assertThat(game.getGameBoard()[7][12]).isEqualTo(Sign.x);
+        assertThat(game.getGameBoard()[9][8]).isEqualTo(Sign.o);
     }
 
     @Test
-    void itShouldIncreaseBoardLeftUp() {
+    void itShouldInlargeBoardUp() {
         // Given
         Game game = underTest.setGame(new Player("Max"));
         game.getGameBoard()[3][6] = Sign.x;
         game.getGameBoard()[4][7] = Sign.o;
         // When
-        game.setGameBoard(underTest.increaseBoardLeftUp(game.getGameBoard()));
+        game.setGameBoard(underTest.inlargeBoardUp(game.getGameBoard()));
+        underTest.drawTheBoard(game.getGameBoard());
         // Then
-        assertThat(game.getGameBoard()).hasDimensions(18,18);
-        assertThat(game.getGameBoard()[6][9]).isEqualTo(Sign.x);
-        assertThat(game.getGameBoard()[7][10]).isEqualTo(Sign.o);
+        assertThat(game.getGameBoard()).hasDimensions(18,15);
+        assertThat(game.getGameBoard()[6][6]).isEqualTo(Sign.x);
+        assertThat(game.getGameBoard()[7][7]).isEqualTo(Sign.o);
     }
-
+    @Test
+    void itShouldInlargeBoardToRight() {
+        // Given
+        Game game = underTest.setGame(new Player("Andrey"));
+        game.getGameBoard()[3][12] = Sign.x;
+        game.getGameBoard()[11][8] = Sign.o;
+        // When
+        game.setGameBoard(underTest.inlargeBoardToRight(game.getGameBoard()));
+        underTest.drawTheBoard(game.getGameBoard());
+        // Then
+        assertThat(game.getGameBoard()).hasDimensions(15, 18);
+        assertThat(game.getGameBoard()[3][12]).isEqualTo(Sign.x);
+        assertThat(game.getGameBoard()[11][8]).isEqualTo(Sign.o);
+    }
     @Test
     void itShouldCheckMainDiagonal() {
         Game game = underTest.setGame(new Player("Anatol"));
