@@ -12,8 +12,9 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 class GameServiceTest {
     @Autowired
     private GameService underTest;
+
     @Test
-    void itSchouldSetGameByGivenPlayer() {
+    void itShouldSetGameByGivenPlayer() {
         // Given
         Player player = new Player("Virgis");
         // When
@@ -81,7 +82,7 @@ class GameServiceTest {
     @Test
     void itShouldCheckMainDiagonal() {
         Game game = underTest.setGame(new Player("Anatol"));
-        Sign board[][] = game.getGameBoard();
+        Sign[][] board = game.getGameBoard();
         for (int i = 7, j = 3; i < 12; i++, j++){
             board [i][j] = Sign.x;
         }
@@ -97,7 +98,7 @@ class GameServiceTest {
     @Test
     void itShouldCheckSecondDiagonal() {
         Game game = underTest.setGame(new Player("Anatol"));
-        Sign board[][] = game.getGameBoard();
+        Sign[][] board = game.getGameBoard();
         for (int i = 9, j = 12; i < 14; i++, j--){
             board [i][j] = Sign.x;
         }
@@ -116,7 +117,7 @@ class GameServiceTest {
     void itShouldCheckWinner() {
         // Given
         Game game = underTest.setGame(new Player("Anatol"));
-        Sign board[][] = game.getGameBoard();
+        Sign[][] board = game.getGameBoard();
         for (int i = 7; i < 12; i++){
             board [i][i] = Sign.x;
         }
