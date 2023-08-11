@@ -80,6 +80,20 @@ class GameServiceTest {
         assertThat(game.getGameBoard()[11][8]).isEqualTo(Sign.o);
     }
     @Test
+    void itShouldEnlargeBoardToLeft() {
+        // Given
+        Game game = underTest.setGame(new Player("Andrey"));
+        game.getGameBoard()[3][7] = Sign.x;
+        game.getGameBoard()[11][8] = Sign.o;
+        // When
+        game.setGameBoard(underTest.enlargeBoardToLeft(game.getGameBoard()));
+        underTest.drawTheBoard(game.getGameBoard());
+        // Then
+        assertThat(game.getGameBoard()).hasDimensions(15, 18);
+        assertThat(game.getGameBoard()[3][10]).isEqualTo(Sign.x);
+        assertThat(game.getGameBoard()[11][11]).isEqualTo(Sign.o);
+    }
+    @Test
     void itShouldCheckMainDiagonal() {
         Game game = underTest.setGame(new Player("Anatol"));
         Sign[][] board = game.getGameBoard();

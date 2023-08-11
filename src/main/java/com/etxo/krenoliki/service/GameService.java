@@ -82,7 +82,7 @@ public class GameService {
             }
         }
         for(int i = 0; i < board.length; i++) {
-            for(int j = 0; j < board.length; j++){
+            for(int j = 0; j < board[i].length; j++){
                 newBoard[i + 3][j] = board[i][j];
             }
         }
@@ -97,6 +97,22 @@ public class GameService {
             for (int j = board[i].length; j < newBoard[i].length; j++) {
                 newBoard[i][j] = Sign.n;
             }
+        }
+        return newBoard;
+    }
+    public Sign[][] enlargeBoardToLeft(Sign[][] board){
+
+        Sign[][] newBoard = new Sign[board.length][board[0].length +3];
+
+        for(int i = 0; i < board.length; i++) {
+
+            for (int j = 0; j < 3; j++) {
+                newBoard[i][j] = Sign.n;
+            }
+            for (int j = 0; j < board[i].length; j++) {
+                newBoard[i][j + 3] = board[i][j];
+            }
+
         }
         return newBoard;
     }
